@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /**
      * The unique ID for the project that the latest git commit SHA
      * should be compared with via the API, this can be found on
