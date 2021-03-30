@@ -1,0 +1,45 @@
+{
+    "name": "senither/version-comparison",
+    "description": "Compares current git commit SHA with a remotely tracked version to see if the application is outdated",
+    "keywords": [
+        "senither",
+        "laravel",
+        "version-comparison"
+    ],
+    "homepage": "https://github.com/senither/version-comparison",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexis Tan",
+            "email": "alexis@senither.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "illuminate/contracts": "^8.0"
+    },
+    "require-dev": {
+        "tightenco/tlint": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Senither\\VersionComparison\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Senither\\VersionComparison\\VersionComparisonServiceProvider"
+            ],
+            "aliases": {
+                "Version": "Senither\\VersionComparison\\VersionFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

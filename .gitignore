@@ -1,0 +1,11 @@
+# PHP & Composer
+/vendor
+.phpunit.result.cache
+composer.lock
+
+# PHP CS
+.php_cs.cache
+.php_cs
+
+# Misc
+TODO
