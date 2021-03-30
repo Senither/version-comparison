@@ -71,7 +71,7 @@ class Version
      */
     public function getVersion(): string
     {
-        $this->data->version;
+        return $this->data->version;
     }
 
     /**
