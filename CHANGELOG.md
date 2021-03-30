@@ -2,6 +2,10 @@
 
 All notable changes to **Version Comparison** will be documented in this file.
 
+## v1.0.4 - 2021-03-31
+
+-   Add support for PHP 8.0+
+
 ## v1.0.3 - 2021-03-30
 
 -   Fix raw version being returned correctly.
