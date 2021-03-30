@@ -36,7 +36,7 @@
                 "Senither\\VersionComparison\\VersionComparisonServiceProvider"
             ],
             "aliases": {
-                "Version": "Senither\\VersionComparison\\Version"
+                "Version": "Senither\\VersionComparison\\Facades\\Version"
             }
         }
     },
