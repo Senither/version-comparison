@@ -2,12 +2,73 @@
 
 namespace Senither\VersionComparison;
 
+use ErrorException;
+
 class VersionManager
 {
-    public function getCurrentVersion()
+    /**
+     * Get the current version from the version tracker, or null if
+     * no git SHA is found, or the API responds with an error.
+     *
+     * @return \Senither\VersionComparison\Version|null
+     */
+    public function getCurrentVersion(): ?Version
     {
-        // TODO: Implement the actual functionality here...
+        $projectId = config('version-comparison.id');
+        if ($projectId == null) {
+            return null;
+        }
 
-        return 'gets current version';
+        $latestCommitHash = $this->getLatestCommitHash();
+        if ($latestCommitHash == null) {
+            return null;
+        }
+
+        return cache()->remember(
+            'version-manger::commit-' . $latestCommitHash,
+            now()->addMinutes(10),
+            fn() => $this->fetchCommitFromApi($projectId, $latestCommitHash)
+        );
+    }
+
+    /**
+     * Get the latest commit hash.
+     *
+     * @return string|null
+     */
+    protected function getLatestCommitHash(): ?string
+    {
+        $commitHash = cache()->remember(
+            'version-manger::latest-commit-hash',
+            now()->addMinutes(10),
+            fn() => exec('git rev-parse HEAD')
+        );
+
+        if (mb_strlen($commitHash) !== 40) {
+            return null;
+        }
+
+        return $commitHash;
+    }
+
+    /**
+     * Fetch the commit object from the API using
+     * the given project ID and commit hash.
+     *
+     * @param  string $projectId
+     * @param  string $commitHash
+     * @return \Senither\VersionComparison\Version|null
+     */
+    protected function fetchCommitFromApi($projectId, $commitHash): ?Version
+    {
+        try {
+            $responses = file_get_contents(
+                'https://vt.senither.com/api/repo/' . $projectId . '/commits/' . $commitHash
+            );
+
+            return new Version(json_decode($responses));
+        } catch (ErrorException $e) {
+            return null;
+        }
     }
 }
