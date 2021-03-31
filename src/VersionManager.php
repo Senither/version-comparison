@@ -26,8 +26,8 @@ class VersionManager
 
         return cache()->remember(
             'version-manger::commit-' . $latestCommitHash,
-            now()->addMinutes(10),
-            fn() => $this->fetchCommitFromApi($projectId, $latestCommitHash)
+            config('version-comparison.cache_time.version'),
+            fn () => $this->fetchCommitFromApi($projectId, $latestCommitHash)
         );
     }
 
@@ -40,8 +40,8 @@ class VersionManager
     {
         $commitHash = cache()->remember(
             'version-manger::latest-commit-hash',
-            now()->addMinutes(10),
-            fn() => exec('git rev-parse HEAD')
+            config('version-comparison.cache_time.commit_hash'),
+            fn () => exec('git rev-parse HEAD')
         );
 
         if (mb_strlen($commitHash) !== 40) {

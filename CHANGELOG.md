@@ -2,6 +2,10 @@
 
 All notable changes to **Version Comparison** will be documented in this file.
 
+## v1.1.0 - 2021-03-31
+
+-   Move cache times to the config to make them customizable.
+
 ## v1.0.4 - 2021-03-31
 
 -   Add support for PHP 8.0+
