@@ -17,10 +17,10 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.0"
+        "illuminate/contracts": "^8.0|^9.0"
     },
     "require-dev": {
-        "tightenco/tlint": "^5.0"
+        "tightenco/tlint": "^6.0"
     },
     "autoload": {
         "psr-4": {
